@@ -41,10 +41,12 @@ object OverlayManager {
 //        }
     }
 
-    fun switch(overlayView: OverlayView) {
+    fun switch(overlayView: OverlayView?) {
         mCurrentOverlay?.get()?.apply { hide(this) }
-        show(overlayView)
-        mCurrentOverlay = WeakReference(overlayView)
+        mCurrentOverlay = overlayView?.let {
+            show(it)
+            WeakReference(it)
+        }
     }
 
     fun show(overlayView: OverlayView) {
